@@ -1,0 +1,28 @@
+.div-table {
+  display: grid;
+  grid-template-columns: 20.96% 5.24% 20.96% 5.24% 20.96% 5.24% 20.96%;
+  grid-auto-rows:20.96% 5.24% 20.96% 5.24% 20.96%;
+  padding: 8%;
+  width: 80vw;
+  height:100vh;
+  background-color: antiquewhite;
+  box-sizing: border-box;
+  border: 5px solid black;
+}   
+.shape
+{
+	background-color:rgb(31, 161, 100);
+  border:1px solid black;
+}
+.container{
+  display: flex;
+}
+.cross{
+  background-color: aliceblue;
+  border:1px solid black;
+}
+.chain{
+  background-color:rgb(135, 57, 199);
+  border:1px solid black;
+  cursor: pointer;
+}
