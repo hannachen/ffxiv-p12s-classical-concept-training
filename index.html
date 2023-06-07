@@ -1,10 +1,56 @@
 <head>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <link rel="stylesheet" href="./style.css">
 <script src="./script.js"></script>
+<title>FFXIV Classical Concept Sim</title>
 </head>
 
 <body style="margin: 0px;">
+  <div>
+    1st Line
+    <select  id="first">
+      <option value="Blue" selected>Blue</option>
+      <option value="Purple">Purple</option>
+      <option value="Red">Red</option>
+      <option value="Green">Green</option>
+    </select>
+  </div>
+  <div>
+    2nd Line
+    <select  id="second">
+      <option value="Blue">Blue</option>
+      <option value="Purple" selected>Purple</option>
+      <option value="Red">Red</option>
+      <option value="Green">Green</option>
+    </select>
+  </div>
+  <div>
+    3rd Line
+    <select  id="third">
+      <option value="Blue">Blue</option>
+      <option value="Purple">Purple</option>
+      <option value="Red" selected>Red</option>
+      <option value="Green">Green</option>
+    </select>
+  </div>
+  <div>
+    4th Line
+    <select  id="fourth">
+      <option value="Blue">Blue</option>
+      <option value="Purple">Purple</option>
+      <option value="Red" >Red</option>
+      <option value="Green"selected>Green</option>
+    </select>
+  </div>
+  <input value="Generate" type="button"name="button" id="button" onclick="myfunction()" />
+    <div id="result">
+    </div> 
+    <div id="theDebuff">
+    </div>
+    <div id="timer">
+    </div>
   <div class="container">
+    
         <div class="div-table">
              
                 <div  class="shape" id="s0"></div>
@@ -47,53 +93,8 @@
                 <div  class="chain" id="c16"></div>
                 <div  class="shape" id="s11"></div>
       </div>
-      <div>
-            <div>
-              1st Line
-              <select  id="first">
-                <option value="Blue" selected>Blue</option>
-                <option value="Purple">Purple</option>
-                <option value="Red">Red</option>
-                <option value="Green">Green</option>
-              </select>
-            </div>
-            <div>
-              2nd Line
-              <select  id="second">
-                <option value="Blue">Blue</option>
-                <option value="Purple" selected>Purple</option>
-                <option value="Red">Red</option>
-                <option value="Green">Green</option>
-              </select>
-            </div>
-            <div>
-              3rd Line
-              <select  id="third">
-                <option value="Blue">Blue</option>
-                <option value="Purple">Purple</option>
-                <option value="Red" selected>Red</option>
-                <option value="Green">Green</option>
-              </select>
-            </div>
-            <div>
-              4th Line
-              <select  id="fourth">
-                <option value="Blue">Blue</option>
-                <option value="Purple">Purple</option>
-                <option value="Red" >Red</option>
-                <option value="Green"selected>Green</option>
-              </select>
-            </div>
-        	  <input value="Generate" type="button"name="button" id="button" onclick="myfunction()" />
-            <div id="result">
-
-            </div> 
-            <div id="theDebuff">
-
-            </div>
-            <div id="timer">
-
-            </div>
-      </div>
     </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </body>

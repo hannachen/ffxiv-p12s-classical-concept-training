@@ -14,14 +14,11 @@ function myfunction(){
         const lineElement = document.querySelector(`#${line}`)
         return lineElement.value
     })
-    console.log(colors)
-    console.log(debuff)
     const debuffName = [colors[0]+" Alpha",colors[0]+" Beta",colors[1]+" Alpha",colors[1]+" Beta",colors[2]+" Alpha",colors[2]+" Beta",colors[3]+" Alpha",colors[3]+" Beta"]
 
     document.querySelector("#theDebuff").innerHTML=debuffName[debuff-1]
     const shape = shapes[randomNumber]
     const letters = [...shape]
-    console.log(letters)
     letters.forEach((letter,index)=>{
         document.querySelector(`#s${index}`).style.backgroundColor=({
             B:"blue",
@@ -31,7 +28,6 @@ function myfunction(){
     })
     const answer = answers[randomNumber]
     const numbers = [...answer]
-    console.log(numbers)
     numbers.forEach((number,index)=>{
         document.querySelector(`#c${index}`).setAttribute("data-value",number)
     })
@@ -40,7 +36,6 @@ function myfunction(){
     let timer;
     chainElements.forEach((chainElement,index)=>{
         function checkOnClick(){
-            console.log("b")
             chainElements.forEach(chainElement=>{
                 chainElement.removeEventListener("click",chainElement.previousFunction)
             })
