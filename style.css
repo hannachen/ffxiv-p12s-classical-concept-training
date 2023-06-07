@@ -16,6 +16,9 @@
 }
 .container{
   display: flex;
+  flex-wrap: wrap;
+  width: 100vw;
+  height:20vh;
 }
 .cross{
   background-color: aliceblue;
