@@ -15,8 +15,54 @@ function myfunction(){
         return lineElement.value
     })
     const debuffName = [colors[0]+" Alpha",colors[0]+" Beta",colors[1]+" Alpha",colors[1]+" Beta",colors[2]+" Alpha",colors[2]+" Beta",colors[3]+" Alpha",colors[3]+" Beta"]
-
-    document.querySelector("#theDebuff").innerHTML=debuffName[debuff-1]
+    if(debuff%2==0){
+                console.log(debuff)
+                var img = document.createElement("img");
+                img.src = "./14104.png";
+                var src = document.getElementById("theDebuffIcon");
+                document.getElementById("theDebuffIcon").innerHTML = "";
+                src.appendChild(img);
+    }else{
+        console.log(debuff)
+                var img = document.createElement("img");
+                img.src = "./14103.png";
+                var src = document.getElementById("theDebuffIcon");
+                document.getElementById("theDebuffIcon").innerHTML = "";
+                src.appendChild(img);
+    }
+    if(debuff==1||debuff==2){
+        coloring(0)
+    }else if(debuff==3||debuff==4){
+        coloring(1)
+    }else if(debuff==5||debuff==6){
+        coloring(2)
+    }else if(debuff==7||debuff==8){
+        coloring(3)
+    }
+      function coloring(color){
+        var img = document.createElement("img");
+        switch(colors[color]) {
+            case "Blue - Cross":
+               console.log("Blue - Cross")
+               img.src = "https://images-ext-2.discordapp.net/external/qboqd5UwYRA9OCkyDXs42WvKGiq6ekrkITS3KbVjnN0/https/ff14.toolboxgaming.space/assets/images/presets/markers/dsrX.png"
+              break;
+            case "Purple - Square":
+                console.log("Purple - Square")
+                img.src = "https://images-ext-1.discordapp.net/external/2CKcT2DhCduwDFWiW47V5b55cvbeRYsd1DX1x5ogaWc/https/ff14.toolboxgaming.space/assets/images/presets/markers/dsrSquare.png"
+              break;
+            case "Red - Circle":
+                console.log("Red - Circle")
+                img.src ="https://images-ext-2.discordapp.net/external/TgQY5pDhamTp40WlTUnLYUMrdNKFpaFcU90BwQyM3Fs/https/ff14.toolboxgaming.space/assets/images/presets/markers/dsrO.png"
+              break;
+            case "Green - Triangle":
+                console.log("Green - Triangle")
+                img.src = "https://images-ext-1.discordapp.net/external/2iOdgkZbeswGYTA7hwhneBTcvf2BHWS2DlrB4FC97DY/https/ff14.toolboxgaming.space/assets/images/presets/markers/dsrTriangle.png"
+              break;
+          }
+          var src = document.getElementById("theDebuffIcon");
+          src.appendChild(img);
+      }
+    document.querySelector("#theDebuff").innerHTML="Debuff: "+debuffName[debuff-1]
     const shape = shapes[randomNumber]
     const letters = [...shape]
     letters.forEach((letter,index)=>{
@@ -26,6 +72,7 @@ function myfunction(){
             Y:"yellow"
         })[letter]
     })
+    
     const answer = answers[randomNumber]
     const numbers = [...answer]
     numbers.forEach((number,index)=>{
@@ -59,7 +106,7 @@ function myfunction(){
     const startTime = Date.now()
     function updateTime(){
         const currentTime = Date.now()
-        document.querySelector("#timer").innerHTML= formatTime(currentTime-startTime)
+        document.querySelector("#timer").innerHTML= "Timer: "+formatTime(currentTime-startTime)+"s"
         timer = requestAnimationFrame(updateTime)
     }
     timer = requestAnimationFrame(updateTime)
