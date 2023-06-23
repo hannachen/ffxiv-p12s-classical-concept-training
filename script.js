@@ -66,11 +66,7 @@ function myfunction(){
     const shape = shapes[randomNumber]
     const letters = [...shape]
     letters.forEach((letter,index)=>{
-        document.querySelector(`#s${index}`).style.backgroundColor=({
-            B:"blue",
-            R:"red",
-            Y:"yellow"
-        })[letter]
+        document.querySelector(`#s${index}`).style.backgroundImage = `url(./shapes/${letter}.png)`;
     })
     
     const answer = answers[randomNumber]
