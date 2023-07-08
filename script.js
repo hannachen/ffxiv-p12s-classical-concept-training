@@ -72,7 +72,9 @@ function myfunction(){
     const answer = answers[randomNumber]
     const numbers = [...answer]
     numbers.forEach((number,index)=>{
-        document.querySelector(`#c${index}`).setAttribute("data-value",number)
+        const mirrored = document.querySelector('#mirrored').checked;
+        const chainIndex = mirrored ? 16 - index : index;
+        document.querySelector(`#c${chainIndex}`).setAttribute("data-value",number)
     })
     
     const chainElements = document.querySelectorAll(".chain")
