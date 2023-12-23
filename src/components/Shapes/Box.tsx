@@ -19,7 +19,7 @@ export function Box({speedMultipler = 0.35, ...meshProps}: BoxProps) {
     <mesh
       {...meshProps}
       ref={meshRef}
-      scale={active ? 1.5 : 1}
+      // scale={active ? 1.5 : 1}
       onClick={(event) => {
         setActive(!active);
       }}
@@ -31,7 +31,7 @@ export function Box({speedMultipler = 0.35, ...meshProps}: BoxProps) {
       }}>
       <boxGeometry args={[2, 2, 2]} />
       <meshStandardMaterial
-        color={hovered ? 'hotpink' : 'black'}
+        color={hovered ? '#ffec59' : 'black'}
         opacity={0.75}
         transparent
       />

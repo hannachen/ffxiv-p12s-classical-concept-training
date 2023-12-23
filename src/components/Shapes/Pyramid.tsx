@@ -22,7 +22,7 @@ export function Pyramid({speedMultipler = 0.35, ...props}: PyramidProps) {
     <mesh
       {...props}
       ref={meshRef}
-      scale={active ? 1.5 : 1}
+      // scale={active ? 1.5 : 1}
       onClick={(event) => {
         setActive(!active);
       }}
@@ -34,7 +34,7 @@ export function Pyramid({speedMultipler = 0.35, ...props}: PyramidProps) {
       }}>
       <cylinderGeometry args={[0, radius, height, 4, 1]} />
       <meshStandardMaterial
-        color={hovered ? 'hotpink' : 'black'}
+        color={hovered ? 'red' : 'black'}
         opacity={0.75}
         transparent
       />

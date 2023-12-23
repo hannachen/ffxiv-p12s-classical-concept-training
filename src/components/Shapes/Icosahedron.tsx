@@ -22,7 +22,7 @@ export function Icosahedron({speedMultipler = 0.35, ...groupProps}: IcosahedronP
     <group ref={groupRef} {...groupProps}>
       <mesh
         ref={meshRef}
-        scale={active ? 1.5 : 1}
+        // scale={active ? 1.5 : 1}
         rotation={[1, 0, 0]}
         onClick={(event) => {
           setActive(!active);
@@ -35,7 +35,7 @@ export function Icosahedron({speedMultipler = 0.35, ...groupProps}: IcosahedronP
         }}>
         <icosahedronGeometry args={[1.4, 0]} />
         <meshStandardMaterial
-          color={hovered ? 'hotpink' : 'black'}
+          color={hovered ? '#36a4ff' : 'black'}
           opacity={0.8}
           transparent
         />
