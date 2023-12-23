@@ -1,23 +1,26 @@
-import { type Mesh } from 'three';
-import { useRef, useState } from 'react';
-import { useFrame, type ThreeElements } from '@react-three/fiber';
-import { Edges } from '@react-three/drei';
+import {type Mesh} from 'three';
+import {useRef, useState} from 'react';
+import {useFrame, type ThreeElements} from '@react-three/fiber';
+import {Edges} from '@react-three/drei';
 
-export function Box(props: ThreeElements['mesh']) {
-  // This reference will give us direct access to the mesh
+import type {BaseShapeProps} from '../../utils/types';
+
+export type BoxProps = BaseShapeProps & ThreeElements['mesh'];
+
+export function Box({
+  speedMultipler = 0.35,
+  ...meshProps
+}: BoxProps) {
   const meshRef = useRef<Mesh>(null!);
 
-  // Set up state for the hovered and active state
   const [hovered, setHover] = useState(false);
   const [active, setActive] = useState(false);
 
-  // Subscribe this component to the render-loop, rotate the mesh every frame
-  useFrame((state, delta) => (meshRef.current.rotation.y += delta * 0.35));
+  useFrame((state, delta) => (meshRef.current.rotation.y += delta * speedMultipler));
 
-  // Return view, these are regular three.js elements expressed in JSX
   return (
     <mesh
-      {...props}
+      {...meshProps}
       ref={meshRef}
       scale={active ? 1.5 : 1}
       onClick={(event) => {
