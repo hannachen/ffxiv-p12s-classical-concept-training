@@ -30,24 +30,22 @@ export default function PositionAssignments() {
   function onColumnChange(event: any) {
     const {name, value} = event.target;
     setAssignments({...assignments, [name]: value});
-  };
+  }
 
   return (
-    <form onReset={onFormReset} className="py-8 w-full grid grid-cols-[repeat(4,_1fr)_300px] gap-x-3">
+    <form
+      onReset={onFormReset}
+      className="py-8 w-full grid grid-cols-[repeat(4,_1fr)_100px] gap-x-3">
       {columns.map((column: string) => {
         return (
           <select
             key={`${column}`}
             name={`${column}`}
             defaultValue={defaultAssignments[column]}
-            onChange={onColumnChange}
-          >
+            onChange={onColumnChange}>
             {Object.keys(options).map((key, index) => {
               return (
-                <option
-                  value={key}
-                  key={`first-${index}`}
-                >
+                <option value={key} key={`first-${index}`}>
                   {options[key]}
                 </option>
               );

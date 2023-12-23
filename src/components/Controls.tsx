@@ -1,5 +1,3 @@
 export default function Controls() {
-  return (
-    <div>Controls</div>
-  );
+  return <form>Controls</form>;
 }

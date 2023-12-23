@@ -1,4 +1,4 @@
-import type {Mesh, Group } from 'three';
+import type {Mesh, Group} from 'three';
 import {useRef, useState} from 'react';
 import {useFrame, type ThreeElements} from '@react-three/fiber';
 import {Edges} from '@react-three/drei';
@@ -7,10 +7,7 @@ import type {BaseShapeProps} from '../../utils/types';
 
 export type IcosahedronProps = BaseShapeProps & ThreeElements['group'];
 
-export function Icosahedron({
-  speedMultipler = 0.35,
-  ...groupProps
-}: IcosahedronProps) {
+export function Icosahedron({speedMultipler = 0.35, ...groupProps}: IcosahedronProps) {
   const meshRef = useRef<Mesh>(null!);
   const groupRef = useRef<Group>(null!);
 
@@ -37,7 +34,11 @@ export function Icosahedron({
           setHover(false);
         }}>
         <icosahedronGeometry args={[1.4, 0]} />
-        <meshStandardMaterial color={hovered ? 'hotpink' : 'black'} opacity={0.8} transparent />
+        <meshStandardMaterial
+          color={hovered ? 'hotpink' : 'black'}
+          opacity={0.8}
+          transparent
+        />
         <Edges threshold={2} color="#36a4ff" />
       </mesh>
     </group>

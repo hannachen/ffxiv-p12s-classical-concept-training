@@ -7,10 +7,7 @@ import type {BaseShapeProps} from '../../utils/types';
 
 export type BoxProps = BaseShapeProps & ThreeElements['mesh'];
 
-export function Box({
-  speedMultipler = 0.35,
-  ...meshProps
-}: BoxProps) {
+export function Box({speedMultipler = 0.35, ...meshProps}: BoxProps) {
   const meshRef = useRef<Mesh>(null!);
 
   const [hovered, setHover] = useState(false);
@@ -33,7 +30,11 @@ export function Box({
         setHover(false);
       }}>
       <boxGeometry args={[2, 2, 2]} />
-      <meshStandardMaterial color={hovered ? 'hotpink' : 'black'} opacity={0.75} transparent />
+      <meshStandardMaterial
+        color={hovered ? 'hotpink' : 'black'}
+        opacity={0.75}
+        transparent
+      />
       <Edges threshold={2} color="#ffec59" />
     </mesh>
   );

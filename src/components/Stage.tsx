@@ -1,7 +1,7 @@
-import { Canvas } from '@react-three/fiber';
-import { Box } from './Shapes/Box';
-import { Pyramid } from './Shapes/Pyramid';
-import { Icosahedron } from './Shapes/Icosahedron';
+import {Canvas} from '@react-three/fiber';
+import {Box} from './Shapes/Box';
+import {Pyramid} from './Shapes/Pyramid';
+import {Icosahedron} from './Shapes/Icosahedron';
 
 export default function Stage() {
   return (
