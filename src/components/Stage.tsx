@@ -1,17 +1,13 @@
+import {Color, Vector3} from 'three';
 import {Canvas} from '@react-three/fiber';
-import {Box} from './Shapes/Box';
+import {Cube} from './Shapes/Cube';
 import {Pyramid} from './Shapes/Pyramid';
 import {Icosahedron} from './Shapes/Icosahedron';
 import {ChainsLayer} from './ChainsLayer';
-import {DebuffsProps} from './Debuffs';
+import {useGame} from '../hooks/useGame';
+import Cloud from './Cloud';
 
-export interface StageProps {
-  debuffs?: DebuffsProps;
-  shapes?: string[][];
-  answers?: string[];
-}
-
-export default function Stage({shapes = [], answers = []}: StageProps) {
+export default function Stage() {
   function getXPosition(index: number) {
     switch (index) {
       case 0:
@@ -28,7 +24,7 @@ export default function Stage({shapes = [], answers = []}: StageProps) {
   function getYPosition(index: number) {
     switch (index) {
       case 0:
-        return 3.7;
+        return 3.75;
       case 1:
         return 0.25;
       case 2:
@@ -44,7 +40,7 @@ export default function Stage({shapes = [], answers = []}: StageProps) {
   function letterToElement(letter: string, {x, y}: Position, key: string) {
     switch (letter) {
       case 'Y':
-        return <Box key={key} position={[x, y, -0.5]} />;
+        return <Cube key={key} position={[x, y, -0.5]} />;
       case 'R':
         return <Pyramid key={key} position={[x, y, -0.5]} />;
       case 'B':
@@ -64,6 +60,7 @@ export default function Stage({shapes = [], answers = []}: StageProps) {
         return {x: 0, y: 0};
     }
   }
+
   function renderShapes(shapes: string[][]): any {
     const elements = shapes.reduce((acc, row, rowIndex) => {
       const currentRow = row.reduce((rowAcc, letter, colIndex) => {
@@ -81,6 +78,22 @@ export default function Stage({shapes = [], answers = []}: StageProps) {
     return elements;
   }
 
+  const {gameState} = useGame();
+
+  const cloud = new Cloud({
+    cloudSize: new Vector3(0.5, 1.0, 0.5),
+    sunPosition: new Vector3(1.0, 2.0, 1.0),
+    cloudColor: new Color(0xeabf6b),
+    skyColor: new Color(0x337fff),
+    cloudSteps: 48,
+    shadowSteps: 8,
+    cloudLength: 16,
+    shadowLength: 2,
+    noise: false
+  });
+
+  console.log('cloud', cloud);
+
   return (
     <Canvas
       style={{objectFit: 'cover'}}
@@ -93,13 +106,13 @@ export default function Stage({shapes = [], answers = []}: StageProps) {
       }}>
       <ambientLight key="light" />
       <pointLight key="pointLight" position={[10, 10, 10]} />
-      {renderShapes(shapes)}
+      {gameState.shapes && renderShapes(gameState.shapes)}
       <ChainsLayer
-        answers={answers}
-        key="gutter"
+        answers={gameState.answers}
         position={[5.3, 5.25, 10]}
-        rotation={[-0.15, 0, 0]}
+        rotation={[-0.11, 0, 0]}
       />
+      {cloud}
     </Canvas>
   );
 }

@@ -1,7 +1,8 @@
 import {useEffect, useState} from 'react';
+import cn from 'classnames';
 import {Select} from './Form/Select/Select';
-// import {Select, Option} from '@material-tailwind/react';
 import {useForm} from 'react-hook-form';
+import {Option} from './Form/Select/Option';
 
 const defaultAssignments = {
   first: 'blue',
@@ -37,28 +38,42 @@ export default function PositionAssignments() {
   return (
     <form
       onReset={onFormReset}
-      className="p-2 w-full grid grid-cols-[repeat(4,_1fr)_100px] gap-x-3">
+      className="p-2 px-10 w-full grid grid-cols-[repeat(4,_1fr)] gap-x-5">
       {columns.map((column: string) => {
         return (
           <Select
             placeholder={defaultAssignments[column]}
             key={`${column}`}
             name={`${column}`}
-            size="lg"
             selected={assignments[column]}
             defaultValue={defaultAssignments[column]}
             onChange={onColumnChange}>
             {Object.keys(options).map((key, index) => {
               return (
-                <option value={key} key={`first-${index}`}>
-                  {options[key]}
-                </option>
+                <Option
+                  value={key}
+                  text={options[key]}
+                  key={`first-${index}`}
+                  defaultSelected={defaultAssignments[key]}>
+                  {({active}) => (
+                    <a
+                      href="#"
+                      className={cn(
+                        active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                        'group flex items-center px-4 py-2 text-sm'
+                      )}>
+                      {options[key]}
+                    </a>
+                  )}
+                </Option>
               );
             })}
           </Select>
         );
       })}
-      <button type="reset">Reset</button>
+      <div className="col-span-4">
+        <button type="reset" className='h-9'>Reset</button>
+      </div>
     </form>
   );
 }

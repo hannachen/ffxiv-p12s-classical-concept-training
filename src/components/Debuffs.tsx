@@ -8,7 +8,7 @@ export interface DebuffsProps {
 
 export default function Debuffs({color, type}: DebuffsProps) {
   return (
-    <div className="grid col-span-10 text-center">
+    <div className="grid col-span-4 col-start-5 text-center">
       Debuffs
       {type && `Type: ${type}`}
       {color && `Color: ${color}`}

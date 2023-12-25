@@ -1,14 +1,14 @@
 import {createRoot} from 'react-dom/client';
-import {ThemeProvider} from '@material-tailwind/react';
 
 import App from './components/App';
+import {GameProvider} from './hooks/useGame';
 
 import './styles/index.css';
 
 const root = createRoot(document.getElementById('root')!);
 
 root.render(
-  <ThemeProvider>
+  <GameProvider>
     <App />
-  </ThemeProvider>
+  </GameProvider>
 );

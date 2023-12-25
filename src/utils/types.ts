@@ -13,3 +13,8 @@ export enum DebuffType {
   Alpha = 'alpha',
   Beta = 'beta',
 }
+
+export const enum ShapeType {
+  Chain = 'chain',
+  Cross = 'cross',
+}

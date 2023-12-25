@@ -5,9 +5,9 @@ import {Edges} from '@react-three/drei';
 
 import type {BaseShapeProps} from '../../utils/types';
 
-export type BoxProps = BaseShapeProps & ThreeElements['mesh'];
+export type CubeProps = BaseShapeProps & ThreeElements['mesh'];
 
-export function Box({speedMultipler = 0.35, ...meshProps}: BoxProps) {
+export function Cube({speedMultipler = 0.35, ...meshProps}: BoxProps) {
   const meshRef = useRef<Mesh>(null!);
 
   const [hovered, setHover] = useState(false);
@@ -35,7 +35,7 @@ export function Box({speedMultipler = 0.35, ...meshProps}: BoxProps) {
         opacity={0.75}
         transparent
       />
-      <Edges threshold={2} color="#ffec59" />
+      <Edges renderOrder={100} threshold={2} color="#ffec59" />
     </mesh>
   );
 }

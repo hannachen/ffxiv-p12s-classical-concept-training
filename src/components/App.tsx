@@ -5,7 +5,11 @@ import Stage from './Stage';
 import Settings from './Settings';
 import {DebuffsProps} from './Debuffs';
 import {DebuffColor, DebuffType} from '../utils/types';
-import {DebuffsContext} from '../hooks/useDebuffs';
+import {GameStatus, useGame} from '../hooks/useGame';
+import cross from '../images/blue-cross.png';
+import square from '../images/purple-square.png';
+import circle from '../images/orange-circle.png';
+import triangle from '../images/green-triangle.png';
 
 const questions = [
   {
@@ -97,7 +101,6 @@ function getGrid(seed: number): GridProps {
 
   const result = selected.reduce((acc, curr, i) => {
     const index = Math.floor(i / cols);
-    console.log('index', index);
     acc[index] = acc[index] ? [...acc[index], curr] : [curr];
     return acc;
   }, []);
@@ -108,31 +111,56 @@ function getGrid(seed: number): GridProps {
 }
 
 export default function App() {
-  const [grid, setGrid] = useState<string[][]>([]);
-  const [answers, setAnswers] = useState<string[]>([]);
-  const [debuffs, setDebuffs] = useState<DebuffsProps>();
+  const {gameState, setGameState} = useGame();
+  const [showHeader, setShowHeader] = useState(true);
 
-  function onStartButtonClick(e) {
+  function handleGameStart(e) {
     e.preventDefault();
     const randomNumber = Math.floor(Math.random() * 11);
-    console.log('randomNumber', randomNumber);
-    setGrid(getGrid(randomNumber));
-    setAnswers(Array.from(questions[randomNumber].answer));
-    setDebuffs(assignDebuffs());
+
+    setGameState({
+      status: GameStatus.Playing,
+      shapes: getGrid(randomNumber),
+      answers: Array.from(questions[randomNumber].answer),
+      debuffs: assignDebuffs(),
+    });
+  }
+
+  function handleGameStop(e) {
+    e.preventDefault();
+
+    setGameState({
+      ...gameState,
+      status: GameStatus.ShowResult,
+    });
+  }
+
+  function handleHeaderToggle() {
+    setShowHeader(!showHeader);
   }
 
   return (
-    <DebuffsContext.Provider value={{debuffs, setDebuffs}}>
-      <div
-        className={cn(
-          'mx-auto h-full pt-14 max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg',
-          'bg-gradient-to-r from-violet-300 via-yellow-100 to-pink-200 background-animate'
-        )}>
-        <div className="w-full h-[50vh] md:h-[70vh] lg:h-[80vh]">
-          <Stage shapes={grid} debuffs={debuffs} answers={answers} />
+    <div className="h-full bg-neutral-900 relative overflow-hidden">
+      <div className={cn(showHeader ? 'pt-0' : 'pt-8')}>
+        {showHeader &&
+          <ul className='grid grid-cols-4 mx-auto max-w-[450] md:max-w-[630] lg:max-w-[740] xl:max-w-[1024] max-h-[100px] relative -top-6'>
+            <li className="list-none grid col-span-1 justify-center"><img className='w-[150px] relative top-5' src={cross} alt={`Blue - Cross ◯`} /></li>
+            <li className="list-none grid col-span-1 justify-center"><img className='w-[150px] relative top-5' src={square} alt={`Purple - Square ■`} /></li>
+            <li className="list-none grid col-span-1 justify-center"><img className='w-[150px] relative top-5' src={circle} alt={`Orange - Circle ◯`} /></li>
+            <li className="list-none grid col-span-1 justify-center"><img className='w-[150px] relative top-5' src={triangle} alt={`Orange - Circle ▽`} /></li>
+          </ul>
+        }
+        <div
+          className={cn(
+            'mx-auto max-w-[450] md:max-w-[630] lg:max-w-[740] xl:max-w-[1024] h-full rounded-[25px] pt-5',
+            'bg-gradient-to-r from-yellow-200 via-pink-300 via-30% via-blue-400 via-40% to-purple-300 background-animate'
+          )}>
+          <div className="w-full h-[50vh] md:h-[70vh] lg:h-[90vh]">
+            <Stage />
+          </div>
         </div>
-        <Settings onStart={(e) => onStartButtonClick(e)} />
       </div>
-    </DebuffsContext.Provider>
+        <Settings onGameStart={(e) => handleGameStart(e)} onGameStop={(e) => handleGameStop(e)} onOpenHeader={handleHeaderToggle} onCloseHeader={handleHeaderToggle} />
+    </div>
   );
 }
