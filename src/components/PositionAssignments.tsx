@@ -1,25 +1,27 @@
 import {useEffect, useState} from 'react';
-import cn from 'classnames';
 import {Select} from './Form/Select/Select';
-import {useForm} from 'react-hook-form';
 import {Option} from './Form/Select/Option';
 
+import cross from '../images/blue-cross.png';
+import square from '../images/purple-square.png';
+import circle from '../images/orange-circle.png';
+import triangle from '../images/green-triangle.png';
+
 const defaultAssignments = {
-  first: 'blue',
-  second: 'purple',
-  third: 'orange',
-  fourth: 'green',
+  first: 'cross',
+  second: 'square',
+  third: 'circle',
+  fourth: 'triangle',
 };
 
 export default function PositionAssignments() {
-  const {register, handleSubmit, reset} = useForm();
   const [assignments, setAssignments] = useState(defaultAssignments);
   const columns: any = ['first', 'second', 'third', 'fourth'];
   const options: any = {
-    blue: 'Blue',
-    purple: 'Purple',
-    orange: 'Orange',
-    green: 'Green',
+    cross: 'Blue',
+    square: 'Purple',
+    circle: 'Orange',
+    triangle: 'Green',
   };
 
   useEffect(() => {
@@ -35,10 +37,24 @@ export default function PositionAssignments() {
     setAssignments({...assignments, [name]: value});
   }
 
+  function getImage(key: string) {
+    switch (key) {
+      case 'cross':
+        return cross;
+      case 'square':
+        return square;
+      case 'circle':
+        return circle;
+      case 'triangle':
+        return triangle;
+    }
+  }
+
   return (
     <form
       onReset={onFormReset}
-      className="p-2 px-10 w-full grid grid-cols-[repeat(4,_1fr)] gap-x-5">
+      className="pt-2 px-5 w-full grid grid-cols-[repeat(4,_1fr)] gap-x-5"
+    >
       {columns.map((column: string) => {
         return (
           <Select
@@ -47,24 +63,19 @@ export default function PositionAssignments() {
             name={`${column}`}
             selected={assignments[column]}
             defaultValue={defaultAssignments[column]}
-            onChange={onColumnChange}>
+            onChange={onColumnChange}
+          >
             {Object.keys(options).map((key, index) => {
               return (
                 <Option
                   value={key}
                   text={options[key]}
                   key={`first-${index}`}
-                  defaultSelected={defaultAssignments[key]}>
-                  {({active}) => (
-                    <a
-                      href="#"
-                      className={cn(
-                        active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                        'group flex items-center px-4 py-2 text-sm'
-                      )}>
-                      {options[key]}
-                    </a>
-                  )}
+                  defaultSelected={defaultAssignments[key]}
+                  selected={assignments[column] === key}
+                >
+                  <img src={getImage(key)} height={36} width={36} alt={`${key}`} />
+                  {options[key]}
                 </Option>
               );
             })}
@@ -72,7 +83,9 @@ export default function PositionAssignments() {
         );
       })}
       <div className="col-span-4">
-        <button type="reset" className='h-9'>Reset</button>
+        <button type="reset" className="h-9">
+          Reset
+        </button>
       </div>
     </form>
   );

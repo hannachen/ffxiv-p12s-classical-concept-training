@@ -1,5 +1,8 @@
 /** @type {import('tailwindcss').Config} */
+import plugin from 'tailwindcss/plugin';
 import {colors} from "tailwindcss/defaultTheme";
+
+console.log('cool colors!', colors);
 
 module.exports = {
   content: [
@@ -8,52 +11,30 @@ module.exports = {
   theme: {
     extend: {
       colors,
+      maxWidth: {
+        'screen-sm': 450,
+        'screen-md': 660,
+        'screen-lg': 960,
+        'screen-xl': 1182,
+      }
     },
     fontFamily: {
       sans: ["Roboto", "sans-serif"],
       serif: ["Roboto Slab", "serif"],
       body: ["Roboto", "sans-serif"],
     },
-    drawer: {
-      defaultProps: {
-        size: 150,
-        overlay: true,
-        placement: "left",
-        overlayProps: undefined,
-        className: "",
-        dismiss: undefined,
-        onClose: undefined,
-        transition: {
-          type: "tween",
-          duration: 0.3,
-        },
-      },
-      styles: {
-        base: {
-          drawer: {
-            position: "fixed",
-            zIndex: "z-[500]",
-            pointerEvents: "pointer-events-auto",
-            backgroundColor: "bg-white",
-            boxSizing: "box-border",
-            width: "w-full",
-            height: "h-[150px]",
-            boxShadow: "shadow-2xl shadow-blue-gray-900/10",
-          },
-          overlay: {
-            position: "absolute",
-            inset: "inset-0",
-            width: "w-full",
-            height: "h-full",
-            pointerEvents: "pointer-events-auto",
-            zIndex: "z-[9995]",
-            backgroundColor: "bg-black",
-            backgroundOpacity: "bg-opacity-60",
-            backdropBlur: "backdrop-blur-sm",
-          },
-        },
-      },
-    },
   },
-  plugins: []
+  plugins: [
+    plugin(function({ matchUtilities, theme }) {
+      matchUtilities(
+        {
+          'translate-z': (value) => ({
+            '--tw-translate-z': value,
+            transform: ` translate3d(var(--tw-translate-x), var(--tw-translate-y), var(--tw-translate-z)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))`,
+          }), // this is actual CSS
+        },
+        { values: theme('translate'), supportsNegativeValues: true }
+      )
+    })
+  ]
 };

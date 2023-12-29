@@ -1,13 +1,19 @@
-import {type Mesh} from 'three';
 import {useRef, useState} from 'react';
 import {useFrame, type ThreeElements} from '@react-three/fiber';
+import {type Mesh} from 'three';
 import {Edges} from '@react-three/drei';
 
 import type {BaseShapeProps} from '../../utils/types';
 
 export type CubeProps = BaseShapeProps & ThreeElements['mesh'];
 
-export function Cube({speedMultipler = 0.35, ...meshProps}: BoxProps) {
+export function Cube({
+  speedMultipler = 0.35,
+  onHover = (e) => {},
+  debug = false,
+  layers = 0,
+  ...meshProps
+}: CubeProps) {
   const meshRef = useRef<Mesh>(null!);
 
   const [hovered, setHover] = useState(false);
@@ -15,27 +21,35 @@ export function Cube({speedMultipler = 0.35, ...meshProps}: BoxProps) {
 
   useFrame((state, delta) => (meshRef.current.rotation.y += delta * speedMultipler));
 
+  const {scale = 1, ...props}: any = meshProps;
+
   return (
-    <mesh
-      {...meshProps}
-      ref={meshRef}
-      // scale={active ? 1.5 : 1}
-      onClick={(event) => {
-        setActive(!active);
-      }}
-      onPointerOver={(event) => {
-        setHover(true);
-      }}
-      onPointerOut={(event) => {
-        setHover(false);
-      }}>
-      <boxGeometry args={[2, 2, 2]} />
-      <meshStandardMaterial
-        color={hovered ? '#ffec59' : 'black'}
-        opacity={0.75}
-        transparent
-      />
-      <Edges renderOrder={100} threshold={2} color="#ffec59" />
-    </mesh>
+    <>
+      <mesh
+        scale={debug ? (active ? scale * 1.5 : scale) : scale}
+        ref={meshRef}
+        onClick={(event) => {
+          setActive(!active);
+        }}
+        onPointerOver={(event) => {
+          setHover(true);
+          onHover(event);
+        }}
+        onPointerOut={(event) => {
+          setHover(false);
+          onHover(event);
+        }}
+        layers={layers}
+        {...props}
+      >
+        <boxGeometry args={[2, 2, 2]} />
+        <meshStandardMaterial
+          color={debug ? (hovered ? '#ffec59' : 'black') : 'black'}
+          opacity={0.5}
+          transparent
+        />
+        <Edges threshold={1} color="#ffec59" layers={layers} />
+      </mesh>
+    </>
   );
 }

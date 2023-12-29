@@ -5,17 +5,53 @@
 .background-animate {
   background-size: 400%;
 
-  -webkit-animation: AnimationName 13s ease-in-out infinite;
-  -moz-animation: AnimationName 13s ease-in-out infinite;
-  animation: AnimationName 13s ease-in-out infinite;
+  -webkit-animation: AnimateGradient 13s ease-in-out infinite;
+  -moz-animation: AnimateGradient 13s ease-in-out infinite;
+  animation: AnimateGradient 13s ease-in-out infinite;
 }
 
-@keyframes AnimationName {
+@keyframes AnimateGradient {
   0%,
   100% {
     background-position: 0% 50%;
   }
   50% {
     background-position: 100% 50%;
+  }
+}
+
+.rainbow-animate {
+  background-size: 400%;
+
+  -webkit-animation: Glowing 20s linear infinite;
+  -moz-animation: Glowing 20s linear infinite;
+  animation: Glowing 20s linear infinite;
+
+  transition: opacity .3s ease-in-out, width .3s ease-in-out;
+}
+
+@keyframes Glowing {
+  0% { background-position: 0 0; }
+  50% { background-position: 400% 0; }
+  100% { background-position: 0 0; }
+}
+
+@layer utilities {
+  .dark-bg {
+    background-image: radial-gradient(rgba(0, 0, 0, 0.15) 0%, rgba(0, 0, 0, 0.25) 55%, rgba(0, 0, 0, 0.9));
+  }
+}
+
+@layer {
+  .debuff-bg:before,
+  .debuff-bg:after {
+    @apply block content-[''] absolute bg-[400%] rounded-full;
+  }
+  .debuff-bg:before {
+    @apply z-0 bg-[linear-gradient(45deg,_#ff0000,_#ff7300,_#fffb00,_#48ff00,_#00ffd5,_#002bff,_#7a00ff,_#ff00c8,_#ff0000)] -top-[4px] -left-[4px] blur-md opacity-50 w-[calc(100%+8px)] h-[calc(100%+8px)] rainbow-animate;
+  }
+
+  .debuff-bg:after {
+    @apply shadow-inherit w-full h-full bg-zinc-200 left-0 top-0 z-10;
   }
 }

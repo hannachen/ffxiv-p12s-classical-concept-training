@@ -1,5 +1,14 @@
 export interface BaseShapeProps {
   speedMultipler?: number;
+  onHover?: (event) => void;
+  debug?: boolean;
+}
+
+export enum SymbolColor {
+  Blue = '✖',
+  Purple = '□',
+  Orange = '◯',
+  Green = '▽',
 }
 
 export enum DebuffColor {

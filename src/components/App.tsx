@@ -6,10 +6,8 @@ import Settings from './Settings';
 import {DebuffsProps} from './Debuffs';
 import {DebuffColor, DebuffType} from '../utils/types';
 import {GameStatus, useGame} from '../hooks/useGame';
-import cross from '../images/blue-cross.png';
-import square from '../images/purple-square.png';
-import circle from '../images/orange-circle.png';
-import triangle from '../images/green-triangle.png';
+import Header from './Header';
+import {Results} from './Results';
 
 const questions = [
   {
@@ -105,8 +103,6 @@ function getGrid(seed: number): GridProps {
     return acc;
   }, []);
 
-  console.log(result);
-
   return result;
 }
 
@@ -123,6 +119,7 @@ export default function App() {
       shapes: getGrid(randomNumber),
       answers: Array.from(questions[randomNumber].answer),
       debuffs: assignDebuffs(),
+      debug: false,
     });
   }
 
@@ -135,32 +132,45 @@ export default function App() {
     });
   }
 
+  function handleGameReset(e) {
+    e.preventDefault();
+
+    setGameState({
+      ...gameState,
+      status: GameStatus.Inactive,
+      shapes: null,
+      answers: null,
+      debuffs: null,
+    });
+  }
+
   function handleHeaderToggle() {
     setShowHeader(!showHeader);
   }
 
   return (
     <div className="h-full bg-neutral-900 relative overflow-hidden">
-      <div className={cn(showHeader ? 'pt-0' : 'pt-8')}>
-        {showHeader &&
-          <ul className='grid grid-cols-4 mx-auto max-w-[450] md:max-w-[630] lg:max-w-[740] xl:max-w-[1024] max-h-[100px] relative -top-6'>
-            <li className="list-none grid col-span-1 justify-center"><img className='w-[150px] relative top-5' src={cross} alt={`Blue - Cross ◯`} /></li>
-            <li className="list-none grid col-span-1 justify-center"><img className='w-[150px] relative top-5' src={square} alt={`Purple - Square ■`} /></li>
-            <li className="list-none grid col-span-1 justify-center"><img className='w-[150px] relative top-5' src={circle} alt={`Orange - Circle ◯`} /></li>
-            <li className="list-none grid col-span-1 justify-center"><img className='w-[150px] relative top-5' src={triangle} alt={`Orange - Circle ▽`} /></li>
-          </ul>
-        }
+      <Results result={gameState.result} />
+      <div>
+        <Header show={showHeader} />
         <div
           className={cn(
-            'mx-auto max-w-[450] md:max-w-[630] lg:max-w-[740] xl:max-w-[1024] h-full rounded-[25px] pt-5',
+            ' mx-auto max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl h-full rounded-[25px]',
             'bg-gradient-to-r from-yellow-200 via-pink-300 via-30% via-blue-400 via-40% to-purple-300 background-animate'
-          )}>
-          <div className="w-full h-[50vh] md:h-[70vh] lg:h-[90vh]">
+          )}
+        >
+          <div className="w-full h-[320px] md:h-[460px] lg:h-[725px] xl:h-[880px]">
             <Stage />
           </div>
         </div>
       </div>
-        <Settings onGameStart={(e) => handleGameStart(e)} onGameStop={(e) => handleGameStop(e)} onOpenHeader={handleHeaderToggle} onCloseHeader={handleHeaderToggle} />
+      <Settings
+        onGameStart={(e) => handleGameStart(e)}
+        onGameStop={(e) => handleGameStop(e)}
+        onGameReset={(e) => handleGameReset(e)}
+        onOpenHeader={handleHeaderToggle}
+        onCloseHeader={handleHeaderToggle}
+      />
     </div>
   );
 }

@@ -1,5 +1,6 @@
 import {useState, useContext, createContext} from 'react';
 import {DebuffsProps} from '../components/Debuffs';
+import {Result} from '../components/Results';
 
 export const enum GameStatus {
   Inactive = 'inactive',
@@ -12,6 +13,8 @@ export interface GameState {
   debuffs: DebuffsProps;
   shapes: string[][];
   answers: string[];
+  result?: Result;
+  debug?: boolean;
 }
 
 export interface GameContextType {
