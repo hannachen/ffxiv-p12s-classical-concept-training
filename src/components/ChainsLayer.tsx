@@ -11,7 +11,7 @@ function renderChain({onClick, answer, debug}) {
   let chainCounter = 0;
   const chainsElements = CHAIN_POSITIONS.reduce((acc, row, rowIndex) => {
     const isHorizontal = row === 7;
-    const squareSize = 0.35;
+    const squareSize = 0.5;
     const rectangeSize = 2.75;
 
     for (let i = 0; i < row; i++) {

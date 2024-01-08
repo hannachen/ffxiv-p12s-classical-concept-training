@@ -1,6 +1,8 @@
 import {useState, useContext, createContext} from 'react';
 import {DebuffsProps} from '../components/Debuffs';
 import {Result} from '../components/Results';
+import {Strategy} from '../utils/types';
+import {defaultAssignments} from '../components/PositionAssignments';
 
 export const enum GameStatus {
   Inactive = 'inactive',
@@ -13,6 +15,8 @@ export interface GameState {
   debuffs: DebuffsProps;
   shapes: string[][];
   answers: string[];
+  strategy: Strategy;
+  startTime?: number;
   result?: Result;
   debug?: boolean;
 }
@@ -30,6 +34,7 @@ export const GameProvider = ({children}) => {
     shapes: null,
     debuffs: null,
     answers: null,
+    strategy: defaultAssignments,
   });
 
   return (

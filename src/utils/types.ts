@@ -4,6 +4,13 @@ export interface BaseShapeProps {
   debug?: boolean;
 }
 
+export interface Strategy {
+  first: DebuffColor;
+  second: DebuffColor;
+  third: DebuffColor;
+  fourth: DebuffColor;
+}
+
 export enum SymbolColor {
   Blue = '✖',
   Purple = '□',

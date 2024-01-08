@@ -21,7 +21,7 @@ export function Results({result}: ResultProps) {
         result !== undefined ? 'opacity-100 visible' : 'opacity-0 hidden'
       )}
     >
-      <div className="pb-6">
+      <div className="mb-[250px] md:mb-6">
         {result === Result.Correct && (
           <div className="flex flex-col items-center justify-center">
             <span className="text-3xl font-bold text-neutral-50">Correct!</span>

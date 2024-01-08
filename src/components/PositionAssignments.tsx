@@ -6,12 +6,13 @@ import cross from '../images/blue-cross.png';
 import square from '../images/purple-square.png';
 import circle from '../images/orange-circle.png';
 import triangle from '../images/green-triangle.png';
+import {DebuffColor, Strategy} from '../utils/types';
 
-const defaultAssignments = {
-  first: 'cross',
-  second: 'square',
-  third: 'circle',
-  fourth: 'triangle',
+export const defaultAssignments: Strategy = {
+  first: DebuffColor.Blue,
+  second: DebuffColor.Purple,
+  third: DebuffColor.Orange,
+  fourth: DebuffColor.Green,
 };
 
 export default function PositionAssignments() {

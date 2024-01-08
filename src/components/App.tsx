@@ -8,6 +8,7 @@ import {DebuffColor, DebuffType} from '../utils/types';
 import {GameStatus, useGame} from '../hooks/useGame';
 import Header from './Header';
 import {Results} from './Results';
+import {defaultAssignments} from './PositionAssignments';
 
 const questions = [
   {
@@ -109,16 +110,20 @@ function getGrid(seed: number): GridProps {
 export default function App() {
   const {gameState, setGameState} = useGame();
   const [showHeader, setShowHeader] = useState(true);
+  const [startTime, setStartTime] = useState(null);
 
   function handleGameStart(e) {
     e.preventDefault();
     const randomNumber = Math.floor(Math.random() * 11);
+    setStartTime(new Date().getTime());
 
     setGameState({
       status: GameStatus.Playing,
       shapes: getGrid(randomNumber),
       answers: Array.from(questions[randomNumber].answer),
       debuffs: assignDebuffs(),
+      strategy: defaultAssignments,
+      startTime,
       debug: false,
     });
   }
@@ -141,6 +146,7 @@ export default function App() {
       shapes: null,
       answers: null,
       debuffs: null,
+      strategy: defaultAssignments,
     });
   }
 
@@ -152,7 +158,7 @@ export default function App() {
     <div className="h-full bg-neutral-900 relative overflow-hidden">
       <Results result={gameState.result} />
       <div>
-        <Header show={showHeader} />
+        <Header show={showHeader} strategy={gameState.strategy} />
         <div
           className={cn(
             ' mx-auto max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl h-full rounded-[25px]',
@@ -170,6 +176,7 @@ export default function App() {
         onGameReset={(e) => handleGameReset(e)}
         onOpenHeader={handleHeaderToggle}
         onCloseHeader={handleHeaderToggle}
+        startTime={startTime}
       />
     </div>
   );

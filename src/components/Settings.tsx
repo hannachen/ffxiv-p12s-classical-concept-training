@@ -11,6 +11,7 @@ import {
 import PositionAssignments from './PositionAssignments';
 import {useGame, GameStatus} from '../hooks/useGame';
 import Debuffs from './Debuffs';
+import {Timer} from './Timer';
 
 interface ControlsProps {
   onGameStart: (e) => void;
@@ -19,6 +20,7 @@ interface ControlsProps {
   onOpenHeader?: () => void;
   onCloseHeader?: () => void;
   defaultOpen?: boolean;
+  startTime?: number;
 }
 
 export default function Settings({
@@ -28,6 +30,7 @@ export default function Settings({
   onOpenHeader = () => {},
   onCloseHeader = () => {},
   defaultOpen = false,
+  startTime = 0,
 }: ControlsProps) {
   const [open, setOpen] = useState(defaultOpen);
   const [openHeader, setOpenHeader] = useState(true);
@@ -65,12 +68,11 @@ export default function Settings({
   const handleButtonClick = (e) => {
     switch (status) {
       case GameStatus.Playing:
-        console.log('Stopping...');
         onGameReset(e);
         break;
-      case GameStatus.Inactive:
       case GameStatus.ShowResult:
-        setOpen(false);
+      case GameStatus.Inactive:
+        closeDrawer();
         onGameStart(e);
         break;
       default:
@@ -113,12 +115,12 @@ export default function Settings({
         open
           ? 'bottom-0'
           : status === GameStatus.Playing
-            ? '-bottom-[165px]'
-            : '-bottom-[85px]'
+            ? '-bottom-[170px] md:-bottom-[165px]'
+            : '-bottom-[100px] md:-bottom-[85px]'
       )}
     >
       <div className="relative mx-auto grid grid-cols-[repeat(12,_1fr)] py-5 max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl">
-        <div className="grid col-span-4 justify-center">
+        <div className="grid col-span-4 justify-center -translate-y-[100px] translate-x-[100%] md:translate-x-0 md:translate-y-0">
           {debug && debuffs && debuffs.number}
           <Debuffs
             {...debuffs}
@@ -129,7 +131,12 @@ export default function Settings({
             )}
           />
         </div>
-        <div className="flex col-start-5 col-span-4 justify-center">
+        <div className="grid col-span-4 justify-center">
+          {status !== GameStatus.Inactive && (
+            <Timer startTime={startTime} gameStatus={status} />
+          )}
+        </div>
+        <div className="flex col-start-4 col-span-6 justify-center">
           <button
             type="button"
             className={cn(
@@ -146,8 +153,8 @@ export default function Settings({
         <div className="grid"></div>
       </div>
       <div className="w-full min-h-[175px] backdrop-blur-sm bg-gray-800/75">
-        <div className="relative mx-auto grid grid-cols-[repeat(12,_1fr)] pb-[125px] pt-8 max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl">
-          <div className="grid col-span-4">
+        <div className="relative mx-auto grid grid-cols-[repeat(12,_1fr)] pb-[130px] md:pb-[125px] pt-8 max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl">
+          <div className="grid col-span-10 lg:col-span-4">
             <div className="flex flex-col w-full md:flex-row items-center md:items-start">
               <label
                 className={cn(
@@ -175,21 +182,21 @@ export default function Settings({
                   <span
                     aria-hidden="true"
                     className={`${openHeader ? 'translate-x-9' : 'translate-x-0'}
-                  pointer-events-none inline-block h-[32px] w-[32px] transform rounded-full bg-white shadow-lg ring-0 transition duration-200 ease-in-out`}
+                      pointer-events-none inline-block h-[32px] w-[32px] transform rounded-full bg-white shadow-lg ring-0 transition duration-200 ease-in-out`}
                   />
                 </Switch>
                 <span
                   className={cn(
-                    'invisible md:visible self-center text-xl ml-1 text-pink-400',
+                    'self-center text-xl ml-1 text-pink-400',
                     openHeader ? 'opacity-100' : 'opacity-50'
                   )}
                 >
-                  {openHeader ? 'Hide' : 'Show'} symbols
+                  Symbols row
                 </span>
               </label>
             </div>
           </div>
-          <div id="menuHandle" className="grid col-start-11 col-span-2">
+          <div id="menuHandle" className="grid col-start-11 col-span-2 hidden">
             <button
               className="bg-slate-200/0 flex justify-end"
               onClick={toggleDrawer}
