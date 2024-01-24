@@ -6,7 +6,7 @@ let previousFunctions = [];
 //0-11
 function myfunction(){
     const randomNumber = Math.floor(Math.random()*11)
-    const debuff = Math.floor(Math.random()*7)+1
+    const debuff = Math.floor(Math.random()*8)+1
     
     document.querySelector("#result").innerHTML=""
 
